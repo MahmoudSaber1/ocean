@@ -1,0 +1,30 @@
+.nav__down {
+  background-image: url("../../assets/images/DownBar.png");
+  background-repeat: no-repeat;
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-position: center;
+  background-size: cover;
+  border-radius: 15px 15px 0 0;
+}
+
+.downNav__center {
+  position: absolute;
+  background-image: url("../../assets/icons/navDownCenterBg.png");
+  top: -90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+}
