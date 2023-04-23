@@ -1,48 +1,43 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
 import {
-	BoxBlock,
-	BoxContainer,
+	Banner,
+	BlogComponent,
 	ConnectWallets,
-	EntiresDrawer,
-	Hero,
-	Navbar,
-	BlogsContainer,
-	StoryContainer,
+	EntriesComponent,
+	StoriesComponent,
 } from "../components";
-import { useStateContext } from "../commen/Context/OceanContext";
+import { BoxContainer, OceanContainer } from "../containers";
+import { useStateContext } from "../ContextProvider";
 
 const Home = () => {
 	const { isAuth } = useStateContext();
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={
-						isAuth === true ? (
-							<EntiresDrawer
-								btnName={"+"}
-								classess={`${"var(--main-color) !important"}`}
-							/>
-						) : (
-							<ConnectWallets btnName={"Connect"} />
-						)
-					}
-				/>
-				<Box>
-					<Hero />
-				</Box>
-				<Box>
-					<BoxBlock name={"Last Blogs"}>
-						<BlogsContainer show={true} hide={true} />
-					</BoxBlock>
-				</Box>
-				<Box>
-					<BoxBlock name={"Last Stories"}>
-						<StoryContainer show={true} />
-					</BoxBlock>
-				</Box>
-			</BoxContainer>
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<EntriesComponent
+							btnName={"+"}
+							classess={`${"var(--main-bg-3) !important"}`}
+						/>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
+				{/* Banner */}
+				<Banner />
+
+				{/* Blogs */}
+				<BoxContainer name={"Last Blogs"}>
+					<BlogComponent BrowsShow={true} avatarHide={true} inBlog={false} />
+				</BoxContainer>
+
+				{/* Stories */}
+				<BoxContainer name={"Last Stories"}>
+					<StoriesComponent inStories={false} storiesShow={true} />
+				</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

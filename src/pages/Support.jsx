@@ -1,31 +1,39 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import React from "react";
 import { icons } from "../assets";
-import { useStateContext } from "../commen/Context/OceanContext";
-import {
-	BoxBlock,
-	BoxContainer,
-	ConnectWallets,
-	Navbar,
-	PagesHeader,
-} from "../components";
+import { ConnectWallets, PagesHeader } from "../components";
+import { BoxContainer, OceanContainer } from "../containers";
+import { useStateContext } from "../ContextProvider";
 
 const Support = () => {
 	const { isAuth } = useStateContext();
-
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={isAuth === true ? null : <ConnectWallets btnName={"Connect"} />}
-				/>
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<Button
+							color={"white"}
+							background={`${"var(--main-bg-3) !important"}`}
+							className={"btnHover"}
+							size={["sm", "sm", "md"]}
+						>
+							<Box fontSize={"2xl"} as="p">
+								New Ticket
+							</Box>
+						</Button>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
 				<Box>
-					<BoxBlock name={"Support"}>
+					<BoxContainer name={"Support"}>
 						<Box pl="5">
 							<Text
 								fontSize={"2xl"}
 								fontWeight="600"
-								color={`${"var(--txt-color)"}`}
+								color={`${"var(--text-color)"}`}
 							>
 								Tickets
 							</Text>
@@ -40,7 +48,7 @@ const Support = () => {
 							mb="10"
 							height="350px"
 							border={"1px solid"}
-							borderColor={`${"var(--txt-color-3)"}`}
+							borderColor={`${"var(--text-color-3)"}`}
 						>
 							<Box
 								display={"flex"}
@@ -52,15 +60,15 @@ const Support = () => {
 								<Text
 									fontSize={("lg", "xl", "2xl")}
 									fontWeight="600"
-									color={`${"var(--txt-color-3)"}`}
+									color={`${"var(--text-color-3)"}`}
 								>
 									you have't submitted any tickets
 								</Text>
 							</Box>
 						</Box>
-					</BoxBlock>
+					</BoxContainer>
 				</Box>
-			</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

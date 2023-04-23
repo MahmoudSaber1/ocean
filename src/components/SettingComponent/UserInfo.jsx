@@ -89,14 +89,14 @@ const UserInfo = ({ link, name, avatar, address }) => {
 					<Avatar
 						size="lg"
 						position={"relative"}
-						src={avatar}
+						name={avatar}
 						top="-8"
 						left="5"
 					/>
 				</Box>
-				<Box pl="24" pt="5" w="full" display={"flex"} flexDirection="column">
+				<Box pl="24" pt="4" w="full" display={"flex"} flexDirection="column">
 					<Text fontSize={["md", "lg", "xl"]} color={`${"var(--txt-color-2)"}`}>
-						{name}
+						{name ? name : "...."}
 					</Text>
 					<Box
 						w="full"
@@ -113,7 +113,7 @@ const UserInfo = ({ link, name, avatar, address }) => {
 						>
 							{address}
 						</Text>
-						{link}
+						<Box cursor={"pointer !important"}>{link}</Box>
 					</Box>
 				</Box>
 			</Box>

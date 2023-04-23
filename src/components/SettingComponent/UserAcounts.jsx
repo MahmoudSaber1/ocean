@@ -13,7 +13,7 @@ const UserAcounts = () => {
 					type={"email"}
 					holder="Enter email address"
 				/>
-				<Box py="1">
+				<Box py="2">
 					<Button w="full">Verify Email</Button>
 				</Box>
 				<Box

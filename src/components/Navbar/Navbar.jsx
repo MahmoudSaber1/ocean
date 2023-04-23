@@ -1,6 +1,8 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import DesktopMenu from "./FixedNav/DesktopMenu";
+import UserDrawer from "./FixedNav/UserDrawer";
 import { icons } from "../../assets";
 
 const Navbar = ({ btn }) => {
@@ -33,7 +35,7 @@ const Navbar = ({ btn }) => {
 							backgroundColor="white"
 							position={"relative"}
 							left="-20px"
-							color={`${"var(--txt-color)"}`}
+							color={`${"var(--text-color)"}`}
 							fontWeight="600"
 							letterSpacing={"1px"}
 							boxShadow="base"
@@ -42,7 +44,20 @@ const Navbar = ({ btn }) => {
 						</Text>
 					</Box>
 				</Link>
-				{btn}
+				<Box display={["none", "none", "none", "block"]}>
+					<DesktopMenu />
+				</Box>
+				<Box
+					display={"flex"}
+					alignItems="center"
+					justifyContent={"center"}
+					gap="5"
+				>
+					{btn}
+					<Box display={["none", "none", "none", "block"]}>
+						<UserDrawer />
+					</Box>
+				</Box>
 			</Flex>
 		</>
 	);

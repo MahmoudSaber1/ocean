@@ -1,36 +1,39 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
 import { icons } from "../assets";
-import { useStateContext } from "../commen/Context/OceanContext";
 import {
-	BlogsComponent,
-	BoxBlock,
-	BoxContainer,
+	BlogComponent,
 	ConnectWallets,
-	Navbar,
+	EntriesComponent,
 	PagesHeader,
 } from "../components";
+import { BoxContainer, OceanContainer } from "../containers";
+import { useStateContext } from "../ContextProvider";
 
 const Blogs = () => {
 	const { isAuth } = useStateContext();
-
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={isAuth === true ? null : <ConnectWallets btnName={"Connect"} />}
-				/>
-
-				<Box>
-					<BoxBlock name={"All Blogs"}>
-						<PagesHeader
-							name={"	top blogs all over ocean."}
-							icon={icons.searchBar}
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<EntriesComponent
+							btnName={"+"}
+							classess={`${"var(--main-bg-3) !important"}`}
 						/>
-						<BlogsComponent />
-					</BoxBlock>
-				</Box>
-			</BoxContainer>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
+				{/* Blogs */}
+				<BoxContainer name={"All Blogs"}>
+					<PagesHeader
+						name={"	top blogs all over ocean."}
+						icon={icons.searchBar}
+					/>
+					<BlogComponent inBlog={true} />
+				</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

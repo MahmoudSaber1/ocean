@@ -1,27 +1,33 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import { icons } from "../assets";
-import { useStateContext } from "../commen/Context/OceanContext";
 import {
-	BoxBlock,
-	BoxContainer,
 	ConnectWallets,
-	Navbar,
+	EntriesComponent,
 	PagesHeader,
 	PublisherCurd,
 } from "../components";
+import { BoxContainer, OceanContainer } from "../containers";
+import { useStateContext } from "../ContextProvider";
 
 const Publishers = () => {
 	const { isAuth } = useStateContext();
-
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={isAuth === true ? null : <ConnectWallets btnName={"Connect"} />}
-				/>
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<EntriesComponent
+							btnName={"+"}
+							classess={`${"var(--main-bg-3) !important"}`}
+						/>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
 				<Box>
-					<BoxBlock name={"Best Publishers"}>
+					<BoxContainer name={"Best Publishers"}>
 						<PagesHeader
 							name={"take a look to our inspired writers."}
 							icon={icons.searchBar}
@@ -29,9 +35,9 @@ const Publishers = () => {
 						<Box>
 							<PublisherCurd />
 						</Box>
-					</BoxBlock>
+					</BoxContainer>
 				</Box>
-			</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

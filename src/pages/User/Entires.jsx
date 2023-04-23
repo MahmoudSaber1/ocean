@@ -1,25 +1,26 @@
 import { Box, Button } from "@chakra-ui/react";
 import React from "react";
-import {
-	BoxBlock,
-	BoxContainer,
-	EntiresDrawer,
-	Navbar,
-} from "../../components";
+import { ConnectWallets, EntriesComponent } from "../../components";
+import { BoxContainer, OceanContainer } from "../../containers";
+import { useStateContext } from "../../ContextProvider";
 
 const Entires = () => {
+	const { isAuth } = useStateContext();
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={
-						<EntiresDrawer
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<EntriesComponent
 							btnName={"+"}
-							classess={`${"var(--main-color) !important"}`}
+							classess={`${"var(--main-bg-3) !important"}`}
 						/>
-					}
-				/>
-				<BoxBlock name={"Entires"}>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
+				<BoxContainer name={"Entires"}>
 					<Box pt="28" pb="32">
 						<Box
 							display={"flex"}
@@ -29,13 +30,13 @@ const Entires = () => {
 							width={"full"}
 							gap="3"
 						>
-							<EntiresDrawer
+							<EntriesComponent
 								btnName={"Create your Entires"}
-								classess={`${"var(--seconde-color) !important"}`}
+								classess={`${"var(--main-bg-2) !important"}`}
 							/>
 							<Button
 								color={"white"}
-								background={`${"var(--main-color) !important"}`}
+								background={`${"var(--main-bg-3) !important"}`}
 								className={"btnHover"}
 								size={["sm", "sm", "md"]}
 							>
@@ -45,8 +46,8 @@ const Entires = () => {
 							</Button>
 						</Box>
 					</Box>
-				</BoxBlock>
-			</BoxContainer>
+				</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

@@ -1,51 +1,54 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
-import { icons } from "../../assets";
-import { useStateContext } from "../../commen/Context/OceanContext";
 import {
-	BlogsContainer,
-	BoxBlock,
-	BoxContainer,
+	BlogComponent,
 	ConnectWallets,
-	Navbar,
+	EntriesComponent,
 	PagesHeader,
-	StoryContainer,
+	StoriesComponent,
 } from "../../components";
+import { BoxContainer, OceanContainer } from "../../containers";
+import { useStateContext } from "../../ContextProvider";
 
 const Favourites = () => {
 	const { isAuth } = useStateContext();
-
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={isAuth === true ? null : <ConnectWallets btnName={"Connect"} />}
-				/>
-				<Box>
-					<BoxBlock name={"Favourites"}>
-						<PagesHeader
-							name={"go to know your favourites"}
-							icon={icons.searchBar}
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<EntriesComponent
+							btnName={"+"}
+							classess={`${"var(--main-bg-3) !important"}`}
 						/>
-						<Box w="full">
-							<Tabs>
-								<TabList rounded={"lg"} border="1px solid #ddd">
-									<Tab backgroundColor={"white"}>Favourites BLogs</Tab>
-									<Tab>Favourites Stories</Tab>
-								</TabList>
-								<TabPanels>
-									<TabPanel w="full">
-										<BlogsContainer />
-									</TabPanel>
-									<TabPanel>
-										<StoryContainer />
-									</TabPanel>
-								</TabPanels>
-							</Tabs>
-						</Box>
-					</BoxBlock>
-				</Box>
-			</BoxContainer>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
+				<BoxContainer name={"Favourites"}>
+					<PagesHeader
+						name={"go to know your favourites"}
+						icon="/assets/icons/searchbar.png"
+					/>
+					<Box w="full">
+						<Tabs>
+							<TabList rounded={"lg"} border="1px solid #ddd">
+								<Tab>Favourites BLogs</Tab>
+								<Tab>Favourites Stories</Tab>
+							</TabList>
+							<TabPanels>
+								<TabPanel w="full">
+									<BlogComponent inBlog={true} />
+								</TabPanel>
+								<TabPanel>
+									<StoriesComponent inStories={true} />
+								</TabPanel>
+							</TabPanels>
+						</Tabs>
+					</Box>
+				</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

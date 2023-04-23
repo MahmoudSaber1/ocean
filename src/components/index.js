@@ -1,19 +1,22 @@
-export { default as Footer } from "./Footer/Footer";
+export { default as Footer } from "./Footer";
 export { default as Navbar } from "./Navbar/Navbar";
-export { default as FixedNavbar } from "./FixedNavbar/FixedNavbar";
-export { default as EntiresDrawer } from "./EntiresComponent/EntiresDrawer";
-export { default as BoxBlock } from "./BoxBlock";
-export { default as BoxContainer } from "./BoxContainer";
-export { default as RichTextEditor } from "./RichTextEditor";
-export { default as ConnectWallets } from "./ConnectWallets";
-export { default as BlogsContainer } from "./BlogsContainer";
-export { default as StoryContainer } from "./StoryContainer";
-export { default as StoryComponent } from "./StoryComponent/StoryComponent";
-export { default as BlogsComponent } from "./BlogsComponent/BlogsComponent";
-export { default as Hero } from "./HomeComponent/Hero";
+export { default as FixedNavbar } from "./Navbar/FixedNav/FixedNavbar";
+export { default as ConnectWallets } from "./ConnectFunctions/ConnectWallets";
 export { default as PagesHeader } from "./PagesHeader";
-export { default as PublisherCurd } from "./PublisherCurd/PublisherCurd";
-export { default as UserStory } from "./UserStory/UserStory";
+export { default as PublisherCurd } from "./PublisherCurd";
+
+// Home Components
+export { default as Banner } from "./Home/Banner";
+
+// Blog Components
+export { default as BlogComponent } from "./Blogs/BlogComponent";
+
+// Stories Components
+export { default as StoriesComponent } from "./Stories/StoriesComponent";
+export { default as UserStory } from "./UserStory";
+
+// Entries
+export { default as EntriesComponent } from "./Entires/EntriesComponent";
 
 // User Import
 export { default as UserInfo } from "./SettingComponent/UserInfo";

@@ -1,0 +1,130 @@
+import { Box, Flex, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import CBlog from "./CBlog";
+import SwiperBlog from "./SwiperBlog";
+// import { images } from "../../assets";
+import axios from "axios";
+import { allBlogData, allTxIds } from "../../common/Api";
+
+// const Blogs = [
+// 	{
+// 		id: 1,
+// 		image: images.BlogImage,
+// 		text1:
+// 			"PROPOSAL: Add WAVES token to boost Pluto treasury and support the Waves ecosystem",
+// 		date: "	August 26th, 2022",
+// 		userName: "Pluto",
+// 		userAddress: "3P566..87",
+// 		avatar: images.BlogImage,
+// 	},
+// 	{
+// 		id: 2,
+// 		image: images.BlogImage,
+// 		text1:
+// 			"PROPOSAL: Add WAVES token to boost Pluto treasury and support the Waves ecosystem",
+// 		date: "	August 26th, 2022",
+// 		userName: "Pluto",
+// 		userAddress: "3P566..87",
+// 		avatar: images.BlogImage,
+// 	},
+// 	{
+// 		id: 3,
+// 		image: images.BlogImage,
+// 		text1:
+// 			"PROPOSAL: Add WAVES token to boost Pluto treasury and support the Waves ecosystem",
+// 		date: "	August 26th, 2022",
+// 		userName: "Pluto",
+// 		userAddress: "3P566..87",
+// 		avatar: images.BlogImage,
+// 	},
+// ];
+
+const BlogComponent = ({ BrowsShow, avatarHide, inBlog }) => {
+	const [getTxId, setGetTxId] = useState([]);
+	const [allBlogs, setAllBlogs] = useState([]);
+
+	const getAllTxIds = () => {
+		axios
+			.get(allTxIds())
+			.then((res) => {
+				const txIds = res.data?.map((item) =>
+					item.key.split("_").slice(1, 2).join("")
+				);
+
+				setGetTxId(txIds);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	useEffect(() => {
+		getAllTxIds();
+	}, []);
+
+	const getAllBlogsData = async (id) => {
+		try {
+			const response = await axios.get(allBlogData(id));
+			const data = response.data;
+
+			const allBlogsData = data.reduce((acc, item) => {
+				const { key, value } = item;
+				const [, , k] = key.split("_");
+
+				return {
+					...acc,
+					[k]: value,
+				};
+			}, {});
+
+			setAllBlogs((prevState) => [...prevState, allBlogsData]);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		if (getTxId.length > 0) {
+			getTxId.forEach((id) => getAllBlogsData(id));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [getTxId]);
+
+	const uniqueArr = allBlogs.filter(
+		(item, index, self) =>
+			index === self.findIndex((t) => t.arweave === item.arweave)
+	);
+
+	return (
+		<Flex p={["10px 20px", "10px 20px", "10px 20px"]} flexDirection="column">
+			{BrowsShow && (
+				<Link to="/blogs">
+					<Text
+						py="1"
+						px="2"
+						backgroundColor={"#76969b3d"}
+						color={`${"var(--text-color-3)"}`}
+						fontSize={["sm", "md", "lg"]}
+						display="flex"
+						gap={"1"}
+						rounded="md"
+						alignItems="center"
+						justifyContent={"center"}
+						mb="5"
+					>
+						Browes our Top Articles
+						<Box fontSize={"2xl"} as="i" className="bx bx-chevron-right"></Box>
+					</Text>
+				</Link>
+			)}
+			<Box>
+				{inBlog === true ? (
+					<CBlog Blogs={uniqueArr} />
+				) : (
+					<SwiperBlog Blogs={uniqueArr} hide={avatarHide} />
+				)}
+			</Box>
+		</Flex>
+	);
+};
+
+export default BlogComponent;

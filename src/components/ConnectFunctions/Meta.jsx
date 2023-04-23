@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
-import { useStateContext } from "../../commen/Context/OceanContext";
+import { useStateContext } from "../../ContextProvider";
 import { Signer } from "@waves/signer";
 import { ProviderMetamask } from "@waves/provider-metamask";
 
@@ -16,7 +16,7 @@ const Meta = () => {
 	const WalletLogin = async () => {
 		await signer
 			.login()
-			.then((res) => console.log(res))
+			.then((res) => saveToken(res, true))
 			.catch((err) => console.log(err));
 	};
 

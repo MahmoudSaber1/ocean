@@ -1,36 +1,40 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { icons } from "../../assets";
-import { useStateContext } from "../../commen/Context/OceanContext";
 import {
-	BoxBlock,
-	BoxContainer,
 	ConnectWallets,
-	Navbar,
+	EntriesComponent,
 	PagesHeader,
 	PublisherCurd,
 } from "../../components";
+import { BoxContainer, OceanContainer } from "../../containers";
+import { useStateContext } from "../../ContextProvider";
+
 const Subscribers = () => {
 	const { isAuth } = useStateContext();
-
 	return (
 		<>
-			<BoxContainer>
-				<Navbar
-					btn={isAuth === true ? null : <ConnectWallets btnName={"Connect"} />}
-				/>
-				<Box>
-					<BoxBlock name={"Subscribers"}>
-						<PagesHeader
-							name={"go to know the pepole who follow you"}
-							icon={icons.searchBar}
+			<OceanContainer
+				navBtn={
+					isAuth === true ? (
+						<EntriesComponent
+							btnName={"+"}
+							classess={`${"var(--main-bg-3) !important"}`}
 						/>
-						<Box>
-							<PublisherCurd />
-						</Box>
-					</BoxBlock>
-				</Box>
-			</BoxContainer>
+					) : (
+						<ConnectWallets btnName={"Connect"} />
+					)
+				}
+			>
+				<BoxContainer name={"Subscribers"}>
+					<PagesHeader
+						name={"go to know the pepole who follow you"}
+						icon="/assets/icons/searchbar.png"
+					/>
+					<Box>
+						<PublisherCurd />
+					</Box>
+				</BoxContainer>
+			</OceanContainer>
 		</>
 	);
 };

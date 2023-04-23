@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { Box, Text, useToast } from "@chakra-ui/react";
 import React from "react";
-import { useStateContext } from "../../commen/Context/OceanContext";
+import { useStateContext } from "../../ContextProvider";
 import { Signer } from "@waves/signer";
 import { ProviderKeeper } from "@waves/provider-keeper";
 
@@ -27,7 +27,7 @@ const Kepper = () => {
 					duration: 9000,
 					isClosable: true,
 				});
-				console.log(res);
+				saveToken(res, true);
 			})
 			.catch((err) =>
 				toast({

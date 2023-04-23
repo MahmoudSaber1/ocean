@@ -1,15 +1,21 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Blogs, Home, Publishers, Search, Stories, Support } from "./pages";
-import { FixedNavbar, Footer } from "./components";
 import {
+	Blogs,
 	Entires,
-	Settings,
-	UserStories,
-	Subscribers,
 	Favourites,
+	Home,
+	Publishers,
+	Search,
+	Settings,
+	Stories,
+	Story,
+	Subscribers,
+	Support,
 	UserID,
-} from "./pages/User";
+} from "./pages";
+
+import { FixedNavbar, Footer } from "./components";
 
 const App = () => {
 	return (
@@ -20,14 +26,14 @@ const App = () => {
 					<Route index element={<Home />} />
 					<Route path="/blogs" element={<Blogs />} />
 					<Route path="/publishers" element={<Publishers />} />
-					<Route path="/search" element={<Search />} />
 					<Route path="/stories" element={<Stories />} />
+					<Route path="/search" element={<Search />} />
 					<Route path="/support" element={<Support />} />
 				</Route>
 
 				{/* UserRoutes */}
 				<Route path="/user/entries" element={<Entires />} />
-				<Route path="/user/stories" element={<UserStories />} />
+				<Route path="/user/stories" element={<Story />} />
 				<Route path="/user/favourites" element={<Favourites />} />
 				<Route path="/user/subscribers" element={<Subscribers />} />
 				<Route path="/user/settings" element={<Settings />} />
