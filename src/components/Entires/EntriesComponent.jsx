@@ -12,10 +12,18 @@ import React from "react";
 import { useStateContext } from "../../ContextProvider";
 import DrawHeader from "./DrawHeader";
 import DrawBody from "./DrawBody";
+import { useState } from "react";
 
 const EntriesComponent = ({ btnName, classess }) => {
-	const { userWallet, isAuth } = useStateContext();
+	const { userWallet, isAuth, dApp, signer } = useStateContext();
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const [sendData, setSendData] = useState({
+		imageUrl: "",
+		title: "",
+	});
+
+	const [textEditor, setTextEditor] = useState("");
 
 	return (
 		<>
@@ -43,8 +51,22 @@ const EntriesComponent = ({ btnName, classess }) => {
 						color={"#2CADC1"}
 						backgroundColor={"#fff"}
 					/>
-					<DrawHeader isAuth={isAuth} userWallet={userWallet} />
-					<DrawBody />
+					<DrawHeader
+						isAuth={isAuth}
+						userWallet={userWallet}
+						sendData={sendData}
+						dApps={dApp}
+						textEditor={textEditor}
+						signer={signer}
+						setSendData={setSendData}
+						setTextEditor={setTextEditor}
+					/>
+					<DrawBody
+						sendData={sendData}
+						setSendData={setSendData}
+						textEditor={textEditor}
+						setTextEditor={setTextEditor}
+					/>
 				</DrawerContent>
 			</Drawer>
 		</>

@@ -5,7 +5,8 @@ import CBlog from "./CBlog";
 import SwiperBlog from "./SwiperBlog";
 // import { images } from "../../assets";
 import axios from "axios";
-import { allBlogData, allTxIds } from "../../common/Api";
+import { allBlogData, allTxIds, favoritesBlog } from "../../common/Api";
+import { useStateContext } from "../../ContextProvider";
 
 // const Blogs = [
 // 	{
@@ -42,23 +43,26 @@ import { allBlogData, allTxIds } from "../../common/Api";
 
 const BlogComponent = ({ BrowsShow, avatarHide, inBlog }) => {
 	const [getTxId, setGetTxId] = useState([]);
-	const [allBlogs, setAllBlogs] = useState([]);
+	const { dApp, signer, userWallet, allBlogs, setAllBlogs } = useStateContext();
 
 	const getAllTxIds = () => {
 		axios
-			.get(allTxIds())
+			.get(inBlog === true ? favoritesBlog(userWallet.address) : allTxIds())
 			.then((res) => {
 				const txIds = res.data?.map((item) =>
 					item.key.split("_").slice(1, 2).join("")
 				);
 
-				setGetTxId(txIds);
+				const values = res.data?.map((item) => item.value);
+
+				setGetTxId(inBlog === true ? values : txIds);
 			})
 			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
 		getAllTxIds();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const getAllBlogsData = async (id) => {
@@ -68,11 +72,11 @@ const BlogComponent = ({ BrowsShow, avatarHide, inBlog }) => {
 
 			const allBlogsData = data.reduce((acc, item) => {
 				const { key, value } = item;
-				const [, , k] = key.split("_");
+				const [, val, k] = key.split("_");
 
 				return {
 					...acc,
-					[k]: value,
+					[k]: k === "arweave" ? `${val}-${value}` : value,
 				};
 			}, {});
 
@@ -117,10 +121,30 @@ const BlogComponent = ({ BrowsShow, avatarHide, inBlog }) => {
 				</Link>
 			)}
 			<Box>
-				{inBlog === true ? (
-					<CBlog Blogs={uniqueArr} />
+				{allBlogs.length > 2 ? (
+					<CBlog
+						Blogs={uniqueArr}
+						dApps={dApp}
+						signer={signer}
+						userWallet={userWallet}
+						inBlog={inBlog}
+					/>
+				) : inBlog === true || inBlog === "blogs" ? (
+					<CBlog
+						Blogs={uniqueArr}
+						dApps={dApp}
+						signer={signer}
+						userWallet={userWallet}
+						inBlog={inBlog}
+					/>
 				) : (
-					<SwiperBlog Blogs={uniqueArr} hide={avatarHide} />
+					<SwiperBlog
+						Blogs={uniqueArr}
+						hide={avatarHide}
+						dApps={dApp}
+						signer={signer}
+						userWallet={userWallet}
+					/>
 				)}
 			</Box>
 		</Flex>

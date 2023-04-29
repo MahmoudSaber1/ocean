@@ -203,3 +203,36 @@ label span {
 .links:hover::after {
     width: 100%;
 }
+.p-editor-container .p-editor-content .ql-editor img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.blog-details > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blog-details > div p {
+    width: 70%;
+    height: 360px;
+}
+
+.blog-details > div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .blog-details > div p {
+        width: 100%;
+        height: auto;
+    }
+}

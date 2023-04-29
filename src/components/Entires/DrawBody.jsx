@@ -3,20 +3,25 @@ import React, { useState } from "react";
 import RichTextEditor from "../RichTextEditor";
 import { uploadImage } from "../../common/Functions/UploadImage";
 
-const DrawBody = () => {
+const DrawBody = ({ sendData, setSendData, textEditor, setTextEditor }) => {
 	const [selectedImages, setSelectedImages] = useState("");
+
 	const onSelectFile = (event) => {
 		const selectedFiles = event.target.files[0];
 		// Upload Functions
 		uploadImage(selectedFiles)
-			.then((res) => console.log(res))
+			.then((res) =>
+				setSendData({
+					...sendData,
+					imageUrl: res.data.url,
+				})
+			)
 			.catch((err) => console.log(err));
 		const selectedFilesArray = URL.createObjectURL(selectedFiles);
 		setSelectedImages(selectedFilesArray);
 		// FOR BUG IN CHROME
 		event.target.value = "";
 	};
-	const [title, setTitle] = useState("");
 
 	return (
 		<>
@@ -88,10 +93,18 @@ const DrawBody = () => {
 					color="black"
 					type="text"
 					placeholder="Give it a Title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
+					value={sendData.title}
+					onChange={(e) =>
+						setSendData({
+							...sendData,
+							title: e.target.value,
+						})
+					}
 				/>
-				<RichTextEditor />
+				<RichTextEditor
+					onChangeRichTextEditor={setTextEditor}
+					editorState={textEditor}
+				/>
 			</DrawerBody>
 		</>
 	);

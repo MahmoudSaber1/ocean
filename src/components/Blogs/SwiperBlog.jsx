@@ -9,10 +9,62 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Pagination } from "swiper";
-import { Avatar, Box, Image, Text } from "@chakra-ui/react";
+import { Avatar, Box, Image, Text, useToast } from "@chakra-ui/react";
 import { images } from "../../assets";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const SwiperBlog = ({ hide, Blogs }) => {
+const SwiperBlog = ({ hide, Blogs, dApps, signer, userWallet }) => {
+	const toast = useToast();
+	const [loved, setLoved] = useState([]);
+	const add_blog_to_favorites = (id) => ({
+		type: 16,
+		dApp: dApps,
+		fee: 500000,
+		payment: [],
+		call: {
+			function: "add_blog_to_favorites",
+			args: [
+				{
+					type: "string",
+					value: userWallet.address,
+				},
+
+				{
+					type: "string",
+					value: id,
+				},
+			],
+		},
+		feeAssetId: null,
+	});
+
+	const invokePublisher = async (txID) => {
+		try {
+			await signer.invoke(add_blog_to_favorites(txID)).broadcast();
+			toast({
+				title: "Success Publish.",
+				status: "success",
+				duration: 9000,
+				isClosable: true,
+				position: "top-right",
+			});
+			setLoved({
+				...loved,
+				[txID]: true,
+			});
+		} catch (err) {
+			toast({
+				title: "Error Publish.",
+				description: err.message,
+				status: "error",
+				duration: 9000,
+				isClosable: true,
+				position: "top-right",
+			});
+		}
+	};
+
 	return (
 		<>
 			<Swiper
@@ -54,23 +106,25 @@ const SwiperBlog = ({ hide, Blogs }) => {
 								position="relative"
 								p="3"
 							>
-								{blog.blog === "s" ? (
-									<Image
-										borderRadius={"3xl"}
-										w={"full"}
-										h="158px"
-										mb="5"
-										src={images.BlogImage}
-									/>
-								) : (
-									<Image
-										borderRadius={"3xl"}
-										w={"full"}
-										h="158px"
-										mb="5"
-										src={blog.blog}
-									/>
-								)}
+								<Link to={`/blogs/${blog.arweave}`}>
+									{blog.blog === "s" ? (
+										<Image
+											borderRadius={"3xl"}
+											w={"full"}
+											h="158px"
+											mb="5"
+											src={images.BlogImage}
+										/>
+									) : (
+										<Image
+											borderRadius={"3xl"}
+											w={"full"}
+											h="158px"
+											mb="5"
+											src={blog.blog}
+										/>
+									)}
+								</Link>
 
 								<Text textAlign={"left"} fontSize={["sm", "md"]} mb="2">
 									{blog.text1}
@@ -97,7 +151,9 @@ const SwiperBlog = ({ hide, Blogs }) => {
 										flex="2"
 										flexDirection="column"
 									>
-										<Text fontSize={["sm", "md"]}>{blog.titel}</Text>
+										<Link to={`/blogs/${blog.arweave}`}>
+											<Text fontSize={["sm", "md"]}>{blog.titel}</Text>
+										</Link>
 										<Text
 											backgroundColor={`${"var(--text-color-3)"}`}
 											p="3px 5px"
@@ -120,10 +176,17 @@ const SwiperBlog = ({ hide, Blogs }) => {
 											width={"25px"}
 											height={"25px"}
 											rounded="lg"
-											background={`${"var(--text-color-3)"}`}
+											background={
+												loved[blog.arweave]
+													? "red.400"
+													: `${"var(--text-color-3)"}`
+											}
 											display="flex"
 											alignItems="center"
 											justifyContent="center"
+											onClick={() =>
+												invokePublisher(blog.arweave?.split("-")[0])
+											}
 										>
 											<Box
 												as={"i"}

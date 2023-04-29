@@ -1,17 +1,21 @@
 // DAPP
-// export const oceandApp = `3N2kVUxYqFz4rHNgnVr7ffhsnC7DptJ1BzH`;
-export const oceandApp = `3MqxhXjG6DVDwFuLsaBz7sgt38iwHj9Da7f`;
+export const oceandApp = `3N2kVUxYqFz4rHNgnVr7ffhsnC7DptJ1BzH`;
+// export const oceandApp = `3MqxhXjG6DVDwFuLsaBz7sgt38iwHj9Da7f`;
 
 export const userData = (wallet_address) => {
 	// return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=user_${wallet_address}_.%2A`;
 	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=user_${wallet_address}_name`;
 };
 
-export const favoritesStory = ({ wallet_address }) => {
+export const favoritesStory = (wallet_address) => {
 	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=user_${wallet_address}_story_favorite_.%2A`;
 };
 
-export const verifiedUser = ({ wallet_address }) => {
+export const favoritesBlog = (wallet_address) => {
+	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=user_${wallet_address}_blog_favorite_.%2A`;
+};
+
+export const verifiedUser = (wallet_address) => {
 	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=user_${wallet_address}_verified_.%2A`;
 };
 
@@ -19,11 +23,11 @@ export const listOfVerifiedUsers = () => {
 	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=.%2A_verified`;
 };
 
-export const likesByBlogId = ({ wallet_address }) => {
+export const likesByBlogId = (wallet_address) => {
 	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=blog_${wallet_address}_favorite_.%2A`;
 };
 
-export const likesByStoryId = ({ wallet_address }) => {
+export const likesByStoryId = (wallet_address) => {
 	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=story_${wallet_address}_favorite_.%2A`;
 };
 
@@ -48,3 +52,13 @@ export const allStoryData = (txId) => {
 export const imageData = ({ link, name }) => {
 	return `https://dxdteam.xyz/arw/puchs?link=${link}?name=${name}`;
 };
+
+export const userBlog = (wallet_address) => {
+	return `https://nodes-testnet.wavesnodes.com/addresses/data/${oceandApp}?matches=user_${wallet_address}_blog.%2A`;
+};
+
+export const blogsDetails = (id) => {
+	return `https://8ruwgqyfxvas19htumdqzvfnvwx188ow-2bkoqawmo8.arweave.net/${id}/index.html`;
+};
+
+export const pushData = `https://dxdteam.xyz/arw/puch`;

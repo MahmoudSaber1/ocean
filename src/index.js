@@ -7,9 +7,11 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { ContextProvider } from "./ContextProvider";
-import "driver.js/dist/driver.min.css";
-import "draft-js/dist/Draft.css";
-import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+
+//core
+import "primereact/resources/primereact.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

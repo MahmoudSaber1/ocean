@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
+	BlogDetails,
 	Blogs,
 	Entires,
 	Favourites,
@@ -9,6 +10,7 @@ import {
 	Search,
 	Settings,
 	Stories,
+	StoriesDetails,
 	Story,
 	Subscribers,
 	Support,
@@ -24,9 +26,15 @@ const App = () => {
 			<Routes>
 				<Route path="/">
 					<Route index element={<Home />} />
-					<Route path="/blogs" element={<Blogs />} />
+					<Route path="/blogs">
+						<Route index element={<Blogs />} />
+						<Route path=":id" element={<BlogDetails />} />
+					</Route>
 					<Route path="/publishers" element={<Publishers />} />
-					<Route path="/stories" element={<Stories />} />
+					<Route path="/stories">
+						<Route index element={<Stories />} />
+						<Route path=":id" element={<StoriesDetails />} />
+					</Route>
 					<Route path="/search" element={<Search />} />
 					<Route path="/support" element={<Support />} />
 				</Route>

@@ -10,9 +10,12 @@ export { default as Banner } from "./Home/Banner";
 
 // Blog Components
 export { default as BlogComponent } from "./Blogs/BlogComponent";
+export { default as CBlog } from "./Blogs/CBlog";
+export { default as DetailsComponent } from "./Blogs/DetailsComponent";
 
 // Stories Components
 export { default as StoriesComponent } from "./Stories/StoriesComponent";
+export { default as DetailsStories } from "./Stories/DetailsStories";
 export { default as UserStory } from "./UserStory";
 
 // Entries

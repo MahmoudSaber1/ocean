@@ -5,6 +5,8 @@ export { default as Search } from "./Search";
 export { default as Stories } from "./Stories";
 export { default as Support } from "./Support";
 export { default as UserID } from "./UserID";
+export { default as BlogDetails } from "./BlogDetails";
+export { default as StoriesDetails } from "./StoriesDetails";
 
 // User Export
 export { default as Entires } from "./User/Entires";

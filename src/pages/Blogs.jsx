@@ -31,7 +31,7 @@ const Blogs = () => {
 						name={"	top blogs all over ocean."}
 						icon={icons.searchBar}
 					/>
-					<BlogComponent inBlog={true} />
+					<BlogComponent inBlog={"blogs"} />
 				</BoxContainer>
 			</OceanContainer>
 		</>

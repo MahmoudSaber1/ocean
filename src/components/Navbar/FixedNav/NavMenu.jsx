@@ -31,18 +31,18 @@ const menuLinks = [
 		to: "/blogs",
 		icon: icons.blogs,
 	},
-	{
-		id: 5,
-		name: "Search",
-		to: "/search",
-		icon: icons.search,
-	},
-	{
-		id: 6,
-		name: "Support",
-		to: "/support",
-		icon: icons.homeSup,
-	},
+	// {
+	// 	id: 5,
+	// 	name: "Search",
+	// 	to: "/search",
+	// 	icon: icons.search,
+	// },
+	// {
+	// 	id: 6,
+	// 	name: "Support",
+	// 	to: "/support",
+	// 	icon: icons.homeSup,
+	// },
 ];
 
 const NavMenu = () => {

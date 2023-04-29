@@ -3,15 +3,19 @@ import React from "react";
 import Info from "./Info";
 import UserBlock from "./UserBlock";
 
-const UserAcounts = () => {
+const UserAcounts = ({ accountData, handleChangeAccount, invokePublisher }) => {
 	return (
 		<>
 			<UserBlock name="Accounts">
 				<Info
-					name="Verify your email address"
+					name="email"
+					name2="Verify your email address"
 					disc="Connect and verify your email to receive notifications from Mirror.."
 					type={"email"}
+					state="Required"
 					holder="Enter email address"
+					val={accountData.email}
+					handelChange={handleChangeAccount}
 				/>
 				<Box py="2">
 					<Button w="full">Verify Email</Button>
@@ -25,24 +29,26 @@ const UserAcounts = () => {
 					w={"full"}
 				>
 					<Info
-						name="Telegram"
+						name="telegram"
 						state="OPtional"
 						disc="A brief summary of who you are. Accepts basic markdown."
 						type={"text"}
-						holder="Telegram Link"
-						val={"http://t.me/sulaimansu"}
+						holder="Telegram Link : http://t.me/sulaimansu"
+						val={accountData.telegram}
+						handelChange={handleChangeAccount}
 					/>
 					<Info
-						name="Twitter"
+						name="twitter"
 						state="OPtional"
 						disc="A brief summary of who you are. Accepts basic markdown."
 						type={"text"}
-						holder="Twitter ID"
-						val={"@Sulaima65699790"}
+						holder="Twitter ID : @Sulaima65699790"
+						val={accountData.twitter}
+						handelChange={handleChangeAccount}
 					/>
 				</Box>
 				<Box py="5">
-					<Button>Save</Button>
+					<Button onClick={() => invokePublisher()}>Save</Button>
 				</Box>
 			</UserBlock>
 		</>

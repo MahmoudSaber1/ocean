@@ -1,16 +1,17 @@
 import React from "react";
-import { icons } from "../assets";
 import {
 	ConnectWallets,
+	DetailsComponent,
 	EntriesComponent,
-	PagesHeader,
-	StoriesComponent,
 } from "../components";
 import { BoxContainer, OceanContainer } from "../containers";
 import { useStateContext } from "../ContextProvider";
+import { useParams } from "react-router-dom";
 
-const Stories = () => {
+const BlogDetails = () => {
 	const { isAuth } = useStateContext();
+	const { id } = useParams();
+
 	return (
 		<>
 			<OceanContainer
@@ -25,22 +26,13 @@ const Stories = () => {
 					)
 				}
 			>
-				{/* Stories */}
-				<BoxContainer name={"All Stories"}>
-					<PagesHeader
-						name={"top stories all over ocean."}
-						icon={icons.searchBar}
-					/>
-
-					<StoriesComponent
-						inStories={"story"}
-						storiesName="All Stories"
-						storiesShow={false}
-					/>
+				{/* Blogs */}
+				<BoxContainer name={"Blog Details"}>
+					<DetailsComponent id={id?.split("-")[1]} tx={id?.split("-")[0]} />
 				</BoxContainer>
 			</OceanContainer>
 		</>
 	);
 };
 
-export default Stories;
+export default BlogDetails;

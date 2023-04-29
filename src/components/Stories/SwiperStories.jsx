@@ -1,4 +1,4 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 // Import Swiper React components
@@ -14,10 +14,60 @@ import { images } from "../../assets";
 import { userData } from "../../common/Api";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const SwiperStories = ({ stories }) => {
+const SwiperStories = ({ stories, dApps, userWallet, signer }) => {
 	const [open, setOpen] = useState({});
 	const [name, setName] = useState("");
+	const toast = useToast();
+	const [loved, setLoved] = useState([]);
+	const add_story_to_favorites = (id) => ({
+		type: 16,
+		dApp: dApps,
+		fee: 500000,
+		payment: [],
+		call: {
+			function: "add_story_to_favorites",
+			args: [
+				{
+					type: "string",
+					value: userWallet.address,
+				},
+
+				{
+					type: "string",
+					value: id,
+				},
+			],
+		},
+		feeAssetId: null,
+	});
+
+	const invokePublisher = async (txID) => {
+		try {
+			await signer.invoke(add_story_to_favorites(txID)).broadcast();
+			toast({
+				title: "Success Publish.",
+				status: "success",
+				duration: 9000,
+				isClosable: true,
+				position: "top-right",
+			});
+			setLoved({
+				...loved,
+				[txID]: true,
+			});
+		} catch (err) {
+			toast({
+				title: "Error Publish.",
+				description: err.message,
+				status: "error",
+				duration: 9000,
+				isClosable: true,
+				position: "top-right",
+			});
+		}
+	};
 
 	const handelBtn = (id) => {
 		setOpen((prevOpen) => ({ ...prevOpen, [id]: !prevOpen[id] }));
@@ -102,25 +152,27 @@ const SwiperStories = ({ stories }) => {
 										border="1.5px solid #fff"
 										boxShadow={"base"}
 									>
-										{story.story === "s" || story.story === "" ? (
-											<Image
-												rounded={"lg"}
-												w={"full"}
-												h="100%"
-												mb="5"
-												src={images.BlogImage}
-												objectFit="cover"
-											/>
-										) : (
-											<Image
-												rounded={"lg"}
-												w={"full"}
-												h="100%"
-												mb="5"
-												src={story.story}
-												objectFit="cover"
-											/>
-										)}
+										<Link to={`/stories/${story.arweave}`}>
+											{story.story === "s" || story.story === "" ? (
+												<Image
+													rounded={"lg"}
+													w={"full"}
+													h="100%"
+													mb="5"
+													src={images.BlogImage}
+													objectFit="cover"
+												/>
+											) : (
+												<Image
+													rounded={"lg"}
+													w={"full"}
+													h="100%"
+													mb="5"
+													src={story.story}
+													objectFit="cover"
+												/>
+											)}
+										</Link>
 									</Box>
 									<Box
 										display={"flex"}
@@ -135,18 +187,25 @@ const SwiperStories = ({ stories }) => {
 											textAlign={"left"}
 											mb="2"
 										>
-											<Text fontSize={"sm"} fontWeight="600">
-												{story.titel}
-											</Text>
+											<Link to={`/stories/${story.arweave}`}>
+												<Text fontSize={"sm"} fontWeight="600">
+													{story.titel}
+												</Text>
+											</Link>
 											<Box
 												cursor={"pointer"}
 												width={"25px"}
 												height={"25px"}
 												rounded="lg"
-												background={`${"var(--text-color-3)"}`}
+												background={
+													loved[story.arweave]
+														? "red.400"
+														: `${"var(--text-color-3)"}`
+												}
 												display="flex"
 												alignItems="center"
 												justifyContent="center"
+												onClick={() => invokePublisher(story.arweave)}
 											>
 												<Box
 													as={"i"}

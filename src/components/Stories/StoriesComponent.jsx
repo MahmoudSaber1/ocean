@@ -5,8 +5,9 @@ import SwiperStories from "./SwiperStories";
 import CStories from "./CStories";
 // import { images } from "../../assets";
 import axios from "axios";
-import { allStoryData, allStoryTxIds } from "../../common/Api";
+import { allStoryData, allStoryTxIds, favoritesStory } from "../../common/Api";
 import { useEffect } from "react";
+import { useStateContext } from "../../ContextProvider";
 
 // const Stories = [
 // 	{
@@ -63,22 +64,30 @@ const StoriesComponent = ({ storiesShow, inStories }) => {
 	// Get All TxIds
 	const [getTxId, setGetTxId] = useState([]);
 	const [allStories, setAllStories] = useState([]);
+	const { dApp, signer, userWallet } = useStateContext();
 
 	const getAllTxIds = () => {
 		axios
-			.get(allStoryTxIds())
+			.get(
+				inStories === true
+					? favoritesStory(userWallet.address)
+					: allStoryTxIds()
+			)
 			.then((res) => {
 				const txIds = res.data?.map((item) =>
 					item.key.split("_").slice(1, 2).join("")
 				);
 
-				setGetTxId(txIds);
+				const values = res.data?.map((item) => item.value);
+
+				setGetTxId(inStories === true ? values : txIds);
 			})
 			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
 		getAllTxIds();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const getAllBlogsData = async (id) => {
@@ -88,11 +97,11 @@ const StoriesComponent = ({ storiesShow, inStories }) => {
 
 			const allBlogsData = data.reduce((acc, item) => {
 				const { key, value } = item;
-				const [, , k] = key.split("_");
+				const [, val, k] = key.split("_");
 
 				return {
 					...acc,
-					[k]: value,
+					[k]: k === "arweave" ? `${val}-${value}` : value,
 				};
 			}, {});
 
@@ -147,10 +156,33 @@ const StoriesComponent = ({ storiesShow, inStories }) => {
 				)}
 
 				<Box>
-					{inStories === true ? (
-						<CStories stories={uniqueArr} handelBtn={handelBtn} open={open} />
+					{allStories.length > 2 ? (
+						<CStories
+							stories={uniqueArr}
+							handelBtn={handelBtn}
+							open={open}
+							dApps={dApp}
+							userWallet={userWallet}
+							signer={signer}
+							inStories={inStories}
+						/>
+					) : inStories === true || inStories === "story" ? (
+						<CStories
+							stories={uniqueArr}
+							handelBtn={handelBtn}
+							open={open}
+							dApps={dApp}
+							userWallet={userWallet}
+							signer={signer}
+							inStories={inStories}
+						/>
 					) : (
-						<SwiperStories stories={uniqueArr} />
+						<SwiperStories
+							stories={uniqueArr}
+							dApps={dApp}
+							userWallet={userWallet}
+							signer={signer}
+						/>
 					)}
 				</Box>
 			</Flex>

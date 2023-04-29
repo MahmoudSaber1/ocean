@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { userData } from "./common/Api";
+import { oceandApp } from "./common/Api";
+import { Signer } from "@waves/signer";
+import { ProviderKeeper } from "@waves/provider-keeper";
 const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
@@ -35,9 +38,21 @@ export const ContextProvider = ({ children }) => {
 			.catch((err) => console.log(err));
 	};
 
+	const dApp = `${oceandApp}`;
+
 	useEffect(() => {
 		isAuth && checkUser();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAuth]);
+
+	const signer = new Signer({
+		// Specify URL of the node on Testnet
+		NODE_URL: "https://nodes-testnet.wavesnodes.com",
+	});
+	const keeper = new ProviderKeeper();
+	signer.setProvider(keeper);
+
+	const [allBlogs, setAllBlogs] = useState([]);
 
 	return (
 		// eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -49,6 +64,10 @@ export const ContextProvider = ({ children }) => {
 				setUserWallet,
 				saveToken,
 				logout,
+				dApp,
+				signer,
+				allBlogs,
+				setAllBlogs,
 			}}
 		>
 			{children}

@@ -16,11 +16,11 @@ const Footer = () => {
 							<Link>telegram</Link>
 							<Link>Email</Link>
 						</Box>
-						<Link href="/support">
+						{/* <Link href="/support">
 							<Box textAlign={"center"} mt="5">
 								Submit a ticket
 							</Box>
-						</Link>
+						</Link> */}
 					</Box>
 				</Container>
 			</VStack>

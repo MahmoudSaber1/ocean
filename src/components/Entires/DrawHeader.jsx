@@ -1,7 +1,111 @@
-import { Avatar, Box, Button, DrawerHeader, Text } from "@chakra-ui/react";
-import React from "react";
+import {
+	Avatar,
+	Box,
+	Button,
+	DrawerHeader,
+	Text,
+	useToast,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { pushData } from "../../common/Api";
 
-const DrawHeader = ({ isAuth, userWallet, name }) => {
+const DrawHeader = ({
+	isAuth,
+	userWallet,
+	name,
+	sendData,
+	dApps,
+	textEditor,
+	signer,
+	setSendData,
+	setTextEditor,
+}) => {
+	// eslint-disable-next-line no-unused-vars
+	const [txId, setTxId] = useState("");
+	const addDiv = `<div>${textEditor}</div>`;
+	const toast = useToast();
+
+	// Publisher
+	const addBlog = (txID) => ({
+		type: 16,
+		dApp: dApps,
+		fee: 500000,
+		payment: [],
+		call: {
+			function: "add_blog",
+			args: [
+				{
+					type: "string",
+					value: userWallet.address, // User Address
+				},
+
+				{
+					type: "string",
+					value: sendData.title, // Tilte Text
+				},
+
+				{
+					type: "string",
+					value: txID, // TX Come from push api after send Editor data
+				},
+
+				{
+					type: "string",
+					value: "signature", // معرفهاش
+				},
+
+				{
+					type: "string",
+					value: sendData.imageUrl, // image url come from cloud
+				},
+			],
+		},
+		feeAssetId: null,
+	});
+
+	const invokePublisher = async (txID) => {
+		try {
+			await signer.invoke(addBlog(txID)).broadcast();
+			toast({
+				title: "Success Publish.",
+				status: "success",
+				duration: 9000,
+				isClosable: true,
+				position: "top-right",
+			});
+			setSendData({
+				title: "",
+				imageUrl: "",
+			});
+			setTextEditor("");
+		} catch (err) {
+			toast({
+				title: "Error Publish.",
+				description: err.message,
+				status: "error",
+				duration: 9000,
+				isClosable: true,
+				position: "top-right",
+			});
+		}
+	};
+
+	const handlePushData = () => {
+		let xhr = new XMLHttpRequest();
+		xhr.open("post", pushData);
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					setTxId(xhr.responseText);
+					invokePublisher(xhr.responseText);
+				}
+			}
+		};
+		let data = new FormData();
+		data.append("puch_data", addDiv);
+		xhr.send(data);
+	};
+
 	return (
 		<>
 			<DrawerHeader
@@ -47,7 +151,7 @@ const DrawHeader = ({ isAuth, userWallet, name }) => {
 								background={`${"var(--main-bg-3) !important"}`}
 								className={"btnHover"}
 								size={["sm"]}
-								// onClick={() => pushData()}
+								onClick={() => handlePushData()}
 							>
 								<Box fontSize={["lg", "xl", "2xl"]} as="p">
 									Publish

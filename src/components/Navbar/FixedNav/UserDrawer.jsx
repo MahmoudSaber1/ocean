@@ -158,14 +158,14 @@ const UserDrawer = ({ name }) => {
 								justifyContent={"flex-start"}
 								alignItems="flex-start"
 							>
-								<Link to={"/support"}>
+								{/* <Link to={"/support"}>
 									<Box color="white" w="full" mb="3">
 										<Box display={"flex"} alignItems="center" gap="4">
 											<Image src={icons.supp} />
 											<Text fontSize={"1.3rem"}>Support</Text>
 										</Box>
 									</Box>
-								</Link>
+								</Link> */}
 
 								<Box color="white" w="full" mb="3">
 									<Box
