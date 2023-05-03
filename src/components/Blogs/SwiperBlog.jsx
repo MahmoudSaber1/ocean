@@ -185,7 +185,7 @@ const SwiperBlog = ({ hide, Blogs, dApps, signer, userWallet }) => {
 											alignItems="center"
 											justifyContent="center"
 											onClick={() =>
-												invokePublisher(blog.arweave?.split("-")[0])
+												invokePublisher(blog.arweave?.split("###")[0])
 											}
 										>
 											<Box

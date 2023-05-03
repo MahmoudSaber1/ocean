@@ -205,7 +205,9 @@ const SwiperStories = ({ stories, dApps, userWallet, signer }) => {
 												display="flex"
 												alignItems="center"
 												justifyContent="center"
-												onClick={() => invokePublisher(story.arweave)}
+												onClick={() =>
+													invokePublisher(story.arweave?.split("###")[0])
+												}
 											>
 												<Box
 													as={"i"}

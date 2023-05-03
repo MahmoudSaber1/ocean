@@ -178,7 +178,7 @@ const CStories = ({
 												alignItems="center"
 												justifyContent="center"
 												onClick={() =>
-													invokePublisher(story.arweave?.split("-")[0])
+													invokePublisher(story.arweave?.split("###")[0])
 												}
 											>
 												<Box

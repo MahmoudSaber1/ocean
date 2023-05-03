@@ -150,7 +150,9 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 										display="flex"
 										alignItems="center"
 										justifyContent="center"
-										onClick={() => invokePublisher(blog.arweave?.split("-")[0])}
+										onClick={() =>
+											invokePublisher(blog.arweave?.split("###")[0])
+										}
 									>
 										<Box
 											as={"i"}

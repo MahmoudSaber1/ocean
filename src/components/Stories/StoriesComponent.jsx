@@ -101,7 +101,7 @@ const StoriesComponent = ({ storiesShow, inStories }) => {
 
 				return {
 					...acc,
-					[k]: k === "arweave" ? `${val}-${value}` : value,
+					[k]: k === "arweave" ? `${val}###${value}` : value,
 				};
 			}, {});
 

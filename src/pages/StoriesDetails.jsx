@@ -28,7 +28,7 @@ const StoriesDetails = () => {
 			>
 				{/* Blogs */}
 				<BoxContainer name={"Story Details"}>
-					<DetailsStories id={id?.split("-")[1]} tx={id?.split("-")[0]} />
+					<DetailsStories id={id?.split("###")[1]} tx={id?.split("###")[0]} />
 				</BoxContainer>
 			</OceanContainer>
 		</>
