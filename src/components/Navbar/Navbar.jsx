@@ -59,8 +59,8 @@ const Navbar = ({ btn }) => {
 					</Box>
 				</Box>
 			</Flex>
-			<div class="marquee-w">
-				<div class="marquee">
+			<div className="marquee-w">
+				<div className="marquee">
 					<span>
 						We are currently working on fixing all the issues present on the
 						website, and this is considered a beta version. The final version

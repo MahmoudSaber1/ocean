@@ -156,7 +156,7 @@ const StoriesComponent = ({ storiesShow, inStories }) => {
 				)}
 
 				<Box>
-					{allStories.length > 2 ? (
+					{inStories === true || inStories === "story" ? (
 						<CStories
 							stories={uniqueArr}
 							handelBtn={handelBtn}
@@ -166,22 +166,22 @@ const StoriesComponent = ({ storiesShow, inStories }) => {
 							signer={signer}
 							inStories={inStories}
 						/>
-					) : inStories === true || inStories === "story" ? (
-						<CStories
-							stories={uniqueArr}
-							handelBtn={handelBtn}
-							open={open}
+					) : allStories?.length > 2 ? (
+						<SwiperStories
+							stories={uniqueArr?.slice(0, 3)}
 							dApps={dApp}
 							userWallet={userWallet}
 							signer={signer}
-							inStories={inStories}
 						/>
 					) : (
-						<SwiperStories
+						<CStories
 							stories={uniqueArr}
+							handelBtn={handelBtn}
+							open={open}
 							dApps={dApp}
 							userWallet={userWallet}
 							signer={signer}
+							inStories={inStories}
 						/>
 					)}
 				</Box>

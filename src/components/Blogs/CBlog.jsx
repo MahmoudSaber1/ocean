@@ -74,10 +74,10 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 						position="relative"
 						p="3"
 						flex="1"
-						key={blog.arweave}
+						key={blog?.arweave}
 					>
-						<Link to={`/blogs/${blog.arweave}`}>
-							{blog.blog === "s" ? (
+						<Link to={`/blogs/${blog?.arweave}`}>
+							{blog?.blog === "s" ? (
 								<Image
 									borderRadius={"3xl"}
 									w={"full"}
@@ -91,15 +91,15 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 									w={"full"}
 									h="100%"
 									mb="5"
-									src={blog.blog}
+									src={blog?.blog}
 								/>
 							)}
 						</Link>
 						<Text textAlign={"left"} fontSize={["sm", "md"]} mb="2">
-							{blog.text1}
+							{blog?.text1}
 						</Text>
 						<Text textAlign={"left"} fontSize={["sm", "md"]} color={"#353a3a"}>
-							{blog.date}
+							{blog?.date}
 						</Text>
 						<Box
 							pr="5"
@@ -116,8 +116,8 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 								flex="2"
 								flexDirection="column"
 							>
-								<Link to={`/blogs/${blog.arweave}`}>
-									<Text fontSize={["sm", "md"]}>{blog.titel}</Text>
+								<Link to={`/blogs/${blog?.arweave}`}>
+									<Text fontSize={["sm", "md"]}>{blog?.titel}</Text>
 								</Link>
 								<Text
 									backgroundColor={`${"var(--text-color-3)"}`}
@@ -143,7 +143,7 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 										height={"25px"}
 										rounded="lg"
 										background={
-											loved[blog.arweave] || inBlog === true
+											loved[blog?.arweave] || inBlog === true
 												? "red.400"
 												: `${"var(--text-color-3)"}`
 										}
@@ -151,7 +151,7 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 										alignItems="center"
 										justifyContent="center"
 										onClick={() =>
-											invokePublisher(blog.arweave?.split("###")[0])
+											invokePublisher(blog?.arweave?.split("###")[0])
 										}
 									>
 										<Box
@@ -169,8 +169,8 @@ const CBlog = ({ Blogs, dApps, signer, userWallet, inUser, inBlog }) => {
 							bottom={"-15px"}
 							position={"absolute"}
 							size={["sm", "md"]}
-							src={blog.blog}
-							name={blog.publisher}
+							src={blog?.blog}
+							name={blog?.publisher}
 						/>
 					</Box>
 				))}

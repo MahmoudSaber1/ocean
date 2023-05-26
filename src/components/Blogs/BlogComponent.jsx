@@ -121,7 +121,7 @@ const BlogComponent = ({ BrowsShow, avatarHide, inBlog }) => {
 				</Link>
 			)}
 			<Box>
-				{allBlogs.length > 2 ? (
+				{inBlog === true || inBlog === "blogs" ? (
 					<CBlog
 						Blogs={uniqueArr}
 						dApps={dApp}
@@ -129,21 +129,21 @@ const BlogComponent = ({ BrowsShow, avatarHide, inBlog }) => {
 						userWallet={userWallet}
 						inBlog={inBlog}
 					/>
-				) : inBlog === true || inBlog === "blogs" ? (
-					<CBlog
-						Blogs={uniqueArr}
-						dApps={dApp}
-						signer={signer}
-						userWallet={userWallet}
-						inBlog={inBlog}
-					/>
-				) : (
+				) : allBlogs.length > 2 ? (
 					<SwiperBlog
-						Blogs={uniqueArr}
+						Blogs={uniqueArr?.slice(0, 3)}
 						hide={avatarHide}
 						dApps={dApp}
 						signer={signer}
 						userWallet={userWallet}
+					/>
+				) : (
+					<CBlog
+						Blogs={uniqueArr}
+						dApps={dApp}
+						signer={signer}
+						userWallet={userWallet}
+						inBlog={inBlog}
 					/>
 				)}
 			</Box>

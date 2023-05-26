@@ -80,7 +80,7 @@ const CStories = ({
 
 	const getUserData = async () => {
 		try {
-			const id = stories.map((story) => story.publisher);
+			const id = stories.map((story) => story?.publisher);
 			const response = await axios.get(userData(id));
 			const data = response.data?.[0]?.value || "";
 			return setName(data);
@@ -103,7 +103,7 @@ const CStories = ({
 				gap="3"
 			>
 				{stories.map((story) => (
-					<React.Fragment key={story.arweave}>
+					<React.Fragment key={story?.arweave}>
 						<Box overflow={"hidden"}>
 							<Box
 								background={"#65c1cf"}
@@ -124,8 +124,8 @@ const CStories = ({
 										border="1.5px solid #fff"
 										boxShadow={"base"}
 									>
-										<Link to={`/stories/${story.arweave}`}>
-											{story.story === "s" || story.story === "" ? (
+										<Link to={`/stories/${story?.arweave}`}>
+											{story?.story === "s" || story?.story === "" ? (
 												<Image
 													rounded={"lg"}
 													w={"full"}
@@ -140,7 +140,7 @@ const CStories = ({
 													w={"full"}
 													h="100%"
 													mb="5"
-													src={story.story}
+													src={story?.story}
 													objectFit="cover"
 												/>
 											)}
@@ -159,9 +159,9 @@ const CStories = ({
 											textAlign={"left"}
 											mb="2"
 										>
-											<Link to={`/stories/${story.arweave}`}>
+											<Link to={`/stories/${story?.arweave}`}>
 												<Text fontSize={"sm"} fontWeight="600">
-													{story.titel}
+													{story?.titel}
 												</Text>
 											</Link>
 											<Box
@@ -170,7 +170,7 @@ const CStories = ({
 												height={"25px"}
 												rounded="lg"
 												background={
-													loved[story.arweave] || inStories === true
+													loved[story?.arweave] || inStories === true
 														? "red.400"
 														: `${"var(--text-color-3)"}`
 												}
@@ -178,7 +178,7 @@ const CStories = ({
 												alignItems="center"
 												justifyContent="center"
 												onClick={() =>
-													invokePublisher(story.arweave?.split("###")[0])
+													invokePublisher(story?.arweave?.split("###")[0])
 												}
 											>
 												<Box
@@ -201,14 +201,14 @@ const CStories = ({
 												fontWeight="600"
 												fontSize={"md"}
 											>
-												PART : {story.last}
+												PART : {story?.last}
 											</Text>
 											<Text
 												color={"#353a3a"}
 												fontWeight="600"
 												fontSize={"12px"}
 											>
-												{convertTimeToData(story.publish)}
+												{convertTimeToData(story?.publish)}
 											</Text>
 										</Box>
 										<Box
@@ -226,11 +226,11 @@ const CStories = ({
 												color={`${"var(--text-color-2)"}`}
 												cursor="pointer"
 											>
-												{story.status}
+												{story?.status}
 											</Box>
 											<Box
 												onClick={() => {
-													handelBtn(story.arweave);
+													handelBtn(story?.arweave);
 												}}
 												cursor="pointer"
 											>
@@ -238,7 +238,7 @@ const CStories = ({
 													as="i"
 													fontSize={"3xl"}
 													className={
-														open[story.arweave]
+														open[story?.arweave]
 															? "bx bx-chevron-up"
 															: "bx bx-chevron-down"
 													}
@@ -263,7 +263,7 @@ const CStories = ({
 										{name}
 									</Text>
 									<Text color={"#353a3a"} fontWeight="400" fontSize={"sm"}>
-										{`${story.publisher.slice(1, 8)}..${story.publisher.slice(
+										{`${story?.publisher.slice(1, 8)}..${story?.publisher.slice(
 											-4
 										)}`}
 									</Text>
@@ -271,7 +271,7 @@ const CStories = ({
 							</Box>
 							<Box
 								className={
-									open[story.arweave] ? "backContent2 active" : "backContent2"
+									open[story?.arweave] ? "backContent2 active" : "backContent2"
 								}
 								left={["7%", "10.5%", "13.5%", "5%"]}
 								w={["210px", "230px", "250px"]}
@@ -286,7 +286,7 @@ const CStories = ({
 									mb="1"
 									width={"fit-content"}
 								>
-									{story.categorys}
+									{story?.categorys}
 								</Text>
 								<Text
 									py={["1", "3"]}
@@ -297,10 +297,10 @@ const CStories = ({
 									fontSize="14px"
 									mb="3"
 								>
-									{story.description}
+									{story?.description}
 								</Text>
 								<Text fontSize={"sm"} color="white">
-									{story.text3}
+									{story?.text3}
 								</Text>
 							</Box>
 						</Box>

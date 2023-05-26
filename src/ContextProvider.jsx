@@ -32,10 +32,7 @@ export const ContextProvider = ({ children }) => {
 	};
 
 	const checkUser = async () => {
-		await axios
-			.post(userData(userWallet.address))
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+		await axios.post(userData(userWallet.address));
 	};
 
 	const dApp = `${oceandApp}`;

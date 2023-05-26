@@ -6,10 +6,11 @@ import {
 } from "../components";
 import { BoxContainer, OceanContainer } from "../containers";
 import { useStateContext } from "../ContextProvider";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const StoriesDetails = () => {
 	const { isAuth } = useStateContext();
+	const { hash } = useLocation();
 	const { id } = useParams();
 
 	return (
@@ -28,7 +29,7 @@ const StoriesDetails = () => {
 			>
 				{/* Blogs */}
 				<BoxContainer name={"Story Details"}>
-					<DetailsStories id={id?.split("###")[1]} tx={id?.split("###")[0]} />
+					<DetailsStories id={hash?.split("###")[1]} tx={id} />
 				</BoxContainer>
 			</OceanContainer>
 		</>

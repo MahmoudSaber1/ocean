@@ -21,7 +21,7 @@ const DetailsStories = ({ id, tx }) => {
 
 				return {
 					...acc,
-					[k]: k === "arweave" ? `${val}-${value}` : value,
+					[k]: k === "arweave" ? `${val}###${value}` : value,
 				};
 			}, {});
 
@@ -54,7 +54,7 @@ const DetailsStories = ({ id, tx }) => {
 	);
 
 	const getCorrectStory = uniqueArr.filter(
-		(blog) => blog.arweave?.split("-")[1] === id
+		(blog) => blog.arweave?.split("###")[1] === id
 	);
 
 	const getUserData = async () => {
@@ -69,11 +69,11 @@ const DetailsStories = ({ id, tx }) => {
 	};
 
 	useEffect(() => {
-		if (getCorrectStory.length > 0) {
+		if (getCorrectStory?.length > 0) {
 			getUserData();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [getCorrectStory.length]);
+	}, [getCorrectStory?.length]);
 
 	const convertTimeToData = (time) => {
 		const newDate = new Date(time);
@@ -88,16 +88,17 @@ const DetailsStories = ({ id, tx }) => {
 
 	return (
 		<Flex p={["10px 20px", "10px 20px", "10px 20px"]} flexDirection="column">
-			{getCorrectStory.map((story) => {
+			{getCorrectStory?.map((story) => {
 				return (
 					<Flex
 						alignItems={"center"}
 						justifyContent={"center"}
 						flexDirection={"column"}
 						gap="15px"
+						key={story?.arweave}
 					>
 						<Image
-							src={story.story}
+							src={story?.story}
 							w="100%"
 							h="360px"
 							rounded={"md"}
@@ -116,10 +117,10 @@ const DetailsStories = ({ id, tx }) => {
 								w="100%"
 							>
 								<Text color={"#353a3a"} fontWeight="600" fontSize={"lg"}>
-									{story.titel}
+									{story?.titel}
 								</Text>
 								<Text color={"#353a3a"} fontWeight="600" fontSize={"md"}>
-									{convertTimeToData(story.publish)}
+									{convertTimeToData(story?.publish)}
 								</Text>
 							</Flex>
 							<Text color={"#353a3a"} fontWeight="600" fontSize={"md"}>

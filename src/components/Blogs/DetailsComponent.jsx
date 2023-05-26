@@ -21,7 +21,7 @@ const DetailsComponent = ({ id, tx }) => {
 
 				return {
 					...acc,
-					[k]: k === "arweave" ? `${val}-${value}` : value,
+					[k]: k === "arweave" ? `${val}###${value}` : value,
 				};
 			}, {});
 
@@ -48,13 +48,13 @@ const DetailsComponent = ({ id, tx }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const uniqueArr = allBlogs.filter(
+	const uniqueArr = allBlogs?.filter(
 		(item, index, self) =>
 			index === self.findIndex((t) => t.arweave === item.arweave)
 	);
 
 	const getCorrectBlog = uniqueArr.filter(
-		(blog) => blog.arweave?.split("-")[1] === id
+		(blog) => blog?.arweave?.split("###")[1] === id
 	);
 
 	const getUserData = async () => {
@@ -69,11 +69,11 @@ const DetailsComponent = ({ id, tx }) => {
 	};
 
 	useEffect(() => {
-		if (getCorrectBlog.length > 0) {
+		if (getCorrectBlog?.length > 0) {
 			getUserData();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [getCorrectBlog.length]);
+	}, [getCorrectBlog?.length]);
 
 	const convertTimeToData = (time) => {
 		const newDate = new Date(time);
@@ -88,7 +88,7 @@ const DetailsComponent = ({ id, tx }) => {
 
 	return (
 		<Flex p={["10px 20px", "10px 20px", "10px 20px"]} flexDirection="column">
-			{getCorrectBlog.map((blog) => {
+			{getCorrectBlog?.map((blog) => {
 				return (
 					<Flex
 						alignItems={"center"}
@@ -97,7 +97,7 @@ const DetailsComponent = ({ id, tx }) => {
 						gap="15px"
 					>
 						<Image
-							src={blog.blog}
+							src={blog?.blog}
 							w="100%"
 							h="360px"
 							rounded={"md"}
@@ -116,10 +116,10 @@ const DetailsComponent = ({ id, tx }) => {
 								w="100%"
 							>
 								<Text color={"#353a3a"} fontWeight="600" fontSize={"lg"}>
-									{blog.titel}
+									{blog?.titel}
 								</Text>
 								<Text color={"#353a3a"} fontWeight="600" fontSize={"md"}>
-									{convertTimeToData(blog.publish)}
+									{convertTimeToData(blog?.publish)}
 								</Text>
 							</Flex>
 							<Text color={"#353a3a"} fontWeight="600" fontSize={"md"}>

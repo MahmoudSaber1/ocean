@@ -245,7 +245,7 @@ label span {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: #004979;
     margin-top: 2.5rem;
     border-radius: 10px;
     overflow: hidden;
@@ -270,7 +270,7 @@ label span {
     letter-spacing: 3px;
     font-size: 14px;
     font-weight: bold;
-    color: var(--text-color);
+    color: #fff;
     animation: marquee 20s linear infinite;
     -webkit-animation: marquee 20s linear infinite;
 }
